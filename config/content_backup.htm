@@ -4,14 +4,14 @@
 <p>與 Heroku 上的 <a href="http://cp2018-bgx.herokuapp.com">http://cp2018-bgx.herokuapp.com</a> 動態網站保持同步</p>
 <h1>Heroku 設定</h1>
 <p>runtime.txt 指定 Python 執行版本:</p>
-<pre class="brush:bash;auto-links:false;toolbar:false" contenteditable="false">python-3.7.1</pre>
+<pre class="brush:js;auto-links:false;toolbar:false" contenteditable="false">python-3.7.1</pre>
 <p>Procfile 宣告由 flaskapp.py 中的 app 執行動態程式:</p>
-<pre class="brush:bash;auto-links:false;toolbar:false" contenteditable="false">web gunicorn flaskapp:app</pre>
+<pre class="brush:js;auto-links:false;toolbar:false" contenteditable="false">web gunicorn flaskapp:app</pre>
 <p>requirements.txt 宣告執行動態程式所需要安裝的模組:</p>
-<pre class="brush:bash;auto-links:false;toolbar:false" contenteditable="false">Flask==1.0.2
+<pre class="brush:js;auto-links:false;toolbar:false" contenteditable="false">Flask==1.0.2
 gunicorn==19.7.1
 Jinja2==2.10
 MarkupSafe==1.0
 Werkzeug==0.14.1
 beautifulsoup4==4.6.0</pre>
-<p></p>
+<h1>parse_content 範例</h1>
