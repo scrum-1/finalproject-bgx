@@ -9,7 +9,14 @@
 <p>內含 Heroku cli  版本 7.18.9 (啟動可攜系統後, 以 heroku --version 查詢版次, 以 heroku login 登入系統, 以 heroku logs 查詢啟動紀錄)</p>
 <p>內含 Eric6 IDE 18.11</p>
 <p>內含 V-rep 3.5.0 rev4</p>
-<p>內含 Fossil SCM Verion 2.7</p><h2>靜態與動態網站</h2>
+<p>內含 Fossil SCM Verion 2.7</p>
+<hr/>
+<p>上述從 Python 3.7.0 更新到 Python 3.7.1 是將安裝在 c:\python37 目錄下的系統安裝檔案, 直接覆蓋 Python 3.7.0 可攜版本.</p>
+<p>但因 Scripts/pip.exe 與 pip3.7.exe 與 pip3.exe 會將 c:\python37 直接寫入這三個 .exe 檔案, 導致直接執行 pip 時, 會因為找不到 c:\python37\python.exe 而無法執行, 必須使用 python -m pip 才能執行.</p>
+<p>修改方式為使用 <a href="https://mh-nexus.de/en/hxd/">https://mh-nexus.de/en/hxd/</a> , 在二位元模式下編輯這三個 .exe 檔案, 將 c:\python37 換為 y:\p37 即可.</p>
+<p>可攜 <a href="/downloads/HxD.7z">HxD.7z</a></p>
+<p></p>
+<p></p><h2>靜態與動態網站</h2>
 <h4>網站類型</h4>
 <p>使用者在建構網站時, 可以選擇採用靜態或動態網站類型, 靜態網站主要伺服 <a href="https://en.wikipedia.org/wiki/HTML">html</a> 檔案, 其中可能內含能在客戶端瀏覽器中執行的 <a href="https://en.wikipedia.org/wiki/JavaScript">JavaScript</a> 程式.</p>
 <p>而動態網站則將網際程式儲存在伺服器端, 透過解譯器與瀏覽器端的使用者互動後, 將 <a href="https://en.wikipedia.org/wiki/HTML">html</a> 檔案 (也可能內含能在客戶端瀏覽器中執行的 <a href="https://en.wikipedia.org/wiki/JavaScript">JavaScript</a> 程式) 送回瀏覽器端執行.</p>
