@@ -14,6 +14,8 @@
 <p>上述從 Python 3.7.0 更新到 Python 3.7.1 是將安裝在 c:\python37 目錄下的系統安裝檔案, 直接覆蓋 Python 3.7.0 可攜版本.</p>
 <p>但因 Scripts/pip.exe 與 pip3.7.exe 與 pip3.exe 會將 c:\python37 直接寫入這三個 .exe 檔案, 導致直接執行 pip 時, 會因為找不到 c:\python37\python.exe 而無法執行, 必須使用 python -m pip 才能執行.</p>
 <p>修改方式為使用 <a href="https://mh-nexus.de/en/hxd/">https://mh-nexus.de/en/hxd/</a> , 在二位元模式下編輯這三個 .exe 檔案, 將 c:\python37 換為 y:\p37 即可.</p>
+<p>可攜 <a href="/downloads/HxD.7z">HxD.7z</a></p>
+<p></p>
 <p></p><h2>靜態與動態網站</h2>
 <h4>網站類型</h4>
 <p>使用者在建構網站時, 可以選擇採用靜態或動態網站類型, 靜態網站主要伺服 <a href="https://en.wikipedia.org/wiki/HTML">html</a> 檔案, 其中可能內含能在客戶端瀏覽器中執行的 <a href="https://en.wikipedia.org/wiki/JavaScript">JavaScript</a> 程式.</p>
@@ -78,6 +80,10 @@ beautifulsoup4==4.6.0</pre>
 <p>靜態網頁: <a href="https://mdecp2018.github.io/finalproject-bgx">https://mdecp2018.github.io/finalproject-bgx</a> </p>
 <p>可用於多人協同的 Github 倉儲: <a href="https://github.com/mdecp2018/finalproject-bgx">https://github.com/mdecp2018/finalproject-bgx</a> </p>
 <h1>Python 程式</h1>
+<h4>從基本語法到 GUI 程式</h4>
+<p><a href="https://pythonspot.com/">https://pythonspot.com/</a> </p>
+<p>整理 <a href="https://www.cs.cmu.edu/~112/schedule.html">https://www.cs.cmu.edu/~112/schedule.html</a> 中的 內容.</p>
+<h4>結合既有 C/C++ 程式</h4>
 <p>從 <a href="http://www.swig.org/">SWIG</a> 到 <a href="https://github.com/StatisKit/AutoWIG">AutoWIG</a>, 使用者可以將既有的 C/C++ 程式庫轉成可為 Python 程式呼叫的動態連結程式庫.</p>
 <p>也可以利用 <a href="https://cython.org/">Cython</a> 技術提升 Python 程式效能.</p>
 <p><a href="http://www.swig.org/">SWIG</a> 範例:</p>
@@ -109,7 +115,63 @@ beautifulsoup4==4.6.0</pre>
 <p><a href="https://github.com/Ultimaker/Cura">https://github.com/Ultimaker/Cura</a> </p>
 <p><a href="https://github.com/maicss/PyQt5-Chinese-tutoral">https://github.com/maicss/PyQt5-Chinese-tutoral</a> </p>
 <p><a href="https://github.com/skinex/CRUD-SQLite-">https://github.com/skinex/CRUD-SQLite-</a> </p>
-<p><a href="https://github.com/LewisTian/PyQt5-Apps">https://github.com/LewisTian/PyQt5-Apps</a> </p><h1>parse_content 範例</h1>
+<p><a href="https://github.com/LewisTian/PyQt5-Apps">https://github.com/LewisTian/PyQt5-Apps</a> </p>
+<h3>GUI 程式碼</h3>
+<h4>擷取網站 html 檔案</h4>
+<pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">def render(url):
+    """Fully render HTML, JavaScript and all."""
+
+    import sys
+    from PyQt5.QtCore import QEventLoop,QUrl
+    from PyQt5.QtWidgets import QApplication
+    from PyQt5.QtWebEngineWidgets import QWebEngineView
+
+    class Render(QWebEngineView):
+        def __init__(self, url):
+            self.html = None
+            self.app = QApplication(sys.argv)
+            QWebEngineView.__init__(self)
+            self.loadFinished.connect(self._loadFinished)
+            self.load(QUrl(url))
+            while self.html is None:
+                self.app.processEvents(QEventLoop.ExcludeUserInputEvents | QEventLoop.ExcludeSocketNotifiers | QEventLoop.WaitForMoreEvents)
+            self.app.quit()
+
+        def _callable(self, data):
+            self.html = data
+
+        def _loadFinished(self, result):
+            self.page().toHtml(self._callable)
+
+    return Render(url).html
+
+dummy_url = "http://mde.tw/"
+print(render(dummy_url))</pre>
+<h4>顯示網站內容</h4>
+<pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false"># coding: utf-8
+
+import sys
+import os
+
+from PyQt5 import (
+    QtCore, 
+    QtWidgets, 
+    QtWebEngineWidgets
+)
+
+app = QtWidgets.QApplication(sys.argv)
+view = QtWebEngineWidgets.QWebEngineView()
+
+'''
+view.load(QtCore.QUrl().fromLocalFile(
+    os.path.split(os.path.abspath(__file__))[0]+r'\html\test.html'
+))
+'''
+view.load(QtCore.QUrl("http://mde.tw"))
+
+view.show()
+sys.exit(app.exec())</pre>
+<p></p><h1>parse_content 範例</h1>
 <pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">import os
 import bs4
 
